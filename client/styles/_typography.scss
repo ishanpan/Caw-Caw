@@ -1,0 +1,7 @@
+.h2Text {
+  font-weight: 400;
+  margin-top: -2rem;
+  @include respond(tab-port) {
+    font-size: 1.8rem;
+  }
+}

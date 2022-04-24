@@ -1,0 +1,45 @@
+@import "_mixins";
+@import "_typography";
+.base {
+  background: orange;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  @include respond(tab-port) {
+    justify-content: safe;
+  }
+  flex-direction: column;
+}
+
+.logo {
+  width: 5.5rem;
+}
+
+.box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: rgba(255, 255, 255, 0.5);
+  padding: 6rem;
+  @include respond(tab-port) {
+    padding: 4rem;
+  }
+  @include respond(phone) {
+    padding: 2rem;
+  }
+  border-radius: 2rem;
+  margin: 2rem;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
