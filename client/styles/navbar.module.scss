@@ -1,0 +1,46 @@
+@import "_mixins";
+@import "_typography";
+
+.base {
+  height: 100vh;
+  width: 18vw;
+  background-color: rgb(245, 245, 245);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 2rem 0 2rem 0;
+  @include respond(tab-port) {
+    display: none;
+  }
+}
+
+.logo {
+  width: 4rem;
+}
+
+.sidebarLogoText {
+  display: flex;
+  align-items: center;
+}
+
+.sidebarLogoText span {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  @include respond(tab-land) {
+    font-size: 1rem;
+    margin-left: 0.75rem;
+  }
+}
+.sidebarLogo {
+  width: 2.5rem;
+  @include respond(tab-land) {
+    width: 1.75rem;
+  }
+}
+
+.btn {
+  @include respond(tab-land) {
+    display: none;
+  }
+}

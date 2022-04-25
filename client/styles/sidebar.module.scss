@@ -1,0 +1,20 @@
+@import "_mixins";
+@import "_typography";
+.base {
+  height: 100vh;
+  background-color: rgb(245, 245, 245);
+  padding: 2.8rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+
+  @include respond(tab-land) {
+    display: none;
+  }
+}
+
+.footer {
+  font-size: 0.8rem;
+  font-weight: 300;
+}
