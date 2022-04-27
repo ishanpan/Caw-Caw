@@ -1,0 +1,14 @@
+@import "_mixins";
+@import "_typography";
+.base {
+  display: none;
+  @include respond(phone) {
+    display: flex;
+  }
+  justify-content: space-around;
+  padding: 0.5rem;
+}
+
+.sidebarLogo {
+  width: 2rem;
+}

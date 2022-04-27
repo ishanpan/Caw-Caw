@@ -6,12 +6,16 @@ import { Button } from "@nextui-org/react";
 import Navbar from "../components/Navbar";
 import Feed from "../components/Feed";
 import Sidebar from "../components/Sidebar";
+import NavbarBottom from "../components/NavbarBottom";
+import NavbarTop from "../components/Navbartop";
 const Home: NextPage = () => {
   return (
     <div className={styles.layout}>
+      <NavbarTop></NavbarTop>
       <Navbar></Navbar>
       <Feed></Feed>
       <Sidebar></Sidebar>
+      <NavbarBottom></NavbarBottom>
     </div>
   );
 };
