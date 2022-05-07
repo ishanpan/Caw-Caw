@@ -1,11 +1,33 @@
+@import "_mixins";
 .base {
   flex-grow: 1;
-  height: 20vh;
+
+  @include respond(small-desktop) {
+    max-width: 65vw;
+  }
+  @include respond(tab-port) {
+    max-width: 100vw;
+  }
+
   background-color: rgb(245, 245, 245);
   box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
   border-radius: 0.8rem;
-  padding: 2rem;
+  padding: 1.5rem;
   margin: 1.5rem;
+}
+
+.profile {
+  display: flex;
+  &__image {
+    margin: 0.5rem;
+  }
+
+  &__name {
+    font-size: larger;
+  }
+  &__username {
+    font-size: large;
+  }
 }
 
 .text {
