@@ -2,7 +2,7 @@
 @import "_typography";
 .layout {
   display: flex;
-  height: 100vh;
+
   @include respond(phone) {
     flex-direction: column;
   }
