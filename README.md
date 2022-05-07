@@ -2,7 +2,7 @@
 
 # Tech Stack
 * NextJS
-* Material UI
+* NEXT UI
 * SCSS
 * NestJS
 * TypeORM
