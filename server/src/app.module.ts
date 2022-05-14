@@ -15,11 +15,9 @@ import { JwtAuthGuard } from './auth/jwt-auth.guard';
     TypeOrmModule.forRoot({
       name: 'default',
       type: 'postgres',
-      host: process.env.host,
+
       port: 5432,
-      username: process.env.userName,
-      password: process.env.password,
-      database: process.env.db,
+      url: process.env.DATABASE_URL,
       entities: ['dist/entities/*.entity{.js,.ts}'],
       synchronize: true,
       ssl: {
