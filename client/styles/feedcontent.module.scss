@@ -1,7 +1,6 @@
 @import "_mixins";
 .base {
   flex-grow: 1;
-  overflow: scroll;
   @include respond(small-desktop) {
     max-width: 65vw;
   }
@@ -32,4 +31,19 @@
 
 .text {
   font-size: 1rem;
+}
+
+.btns {
+  display: flex;
+  margin: 1rem;
+  align-items: center;
+}
+
+.btn {
+  height: 2rem;
+  width: 2rem;
+  margin: 0 1rem 0 1rem;
+}
+.votes {
+  // margin: 1rem;
 }

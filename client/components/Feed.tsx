@@ -6,6 +6,11 @@ function Feed() {
   return (
     <div className={styles.base}>
       <FeedContent></FeedContent>
+      <FeedContent></FeedContent>
+
+      <FeedContent></FeedContent>
+
+      <FeedContent></FeedContent>
     </div>
   );
 }

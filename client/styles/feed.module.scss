@@ -8,4 +8,12 @@
   @include respond(phone) {
     padding: 1rem;
   }
+  overflow: scroll;
+  overflow-x: hidden;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none;
+}
+
+.base::-webkit-scrollbar {
+  display: none;
 }

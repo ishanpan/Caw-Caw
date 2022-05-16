@@ -3,6 +3,11 @@ import React from "react";
 import styles from "../styles/feedcontent.module.scss";
 import dumb from "../public/dummypic.webp";
 import { Avatar } from "@nextui-org/react";
+import Upvote from "../public/arrow-up-outline.svg";
+import Downvote from "../public/arrow-down-outline.svg";
+import Recaw from "../public/repeat-outline.svg";
+import Opinion from "../public/ear-outline.svg";
+
 function FeedContent() {
   return (
     <div className={styles.base}>
@@ -29,6 +34,21 @@ function FeedContent() {
         consectetur adipisicing elit. Deserunt laudantium quas, eius temporibus
         et at illo? Quo vel, magni in iure mollitia temporibus adipisci ullam
         maiores eveniet cum similique eum.
+      </div>
+      <div className={styles.btns}>
+        <div className={styles.btn}>
+          <Image src={Upvote} alt="upvote"></Image>
+        </div>
+        <div className={styles.votes}>69</div>
+        <div className={styles.btn}>
+          <Image src={Downvote} alt="downvote"></Image>
+        </div>
+        <div className={styles.btn}>
+          <Image src={Recaw} alt="Recaw"></Image>
+        </div>
+        <div className={styles.btn}>
+          <Image src={Opinion} alt="Opinion"></Image>
+        </div>
       </div>
     </div>
   );
