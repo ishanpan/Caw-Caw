@@ -8,6 +8,7 @@ import Feed from "../components/Feed";
 import Sidebar from "../components/Sidebar";
 import NavbarBottom from "../components/NavbarBottom";
 import NavbarTop from "../components/Navbartop";
+import CreatePost from "../components/CreatePost";
 const Home: NextPage = () => {
   return (
     <div className={styles.layout}>
