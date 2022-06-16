@@ -3,9 +3,10 @@ import styles from "../styles/feed.module.scss";
 import CreatePost from "./CreatePost";
 import FeedContent from "./FeedContent";
 
-function Feed() {
+function FeedHome() {
   return (
     <div className={styles.base}>
+      <CreatePost></CreatePost>
       <FeedContent></FeedContent>
       <FeedContent></FeedContent>
       <FeedContent></FeedContent>
@@ -14,4 +15,4 @@ function Feed() {
   );
 }
 
-export default Feed;
+export default FeedHome;

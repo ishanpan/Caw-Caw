@@ -1,7 +1,6 @@
 import Image from "next/image";
 import React, { useState } from "react";
 import styles from "../styles/feedcontent.module.scss";
-import dumb from "../public/dummypic.webp";
 import { Avatar } from "@nextui-org/react";
 import Upvote from "../public/arrow-up-outline.svg";
 import Downvote from "../public/arrow-down-outline.svg";

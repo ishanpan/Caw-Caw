@@ -9,17 +9,21 @@ import Sidebar from "../components/Sidebar";
 import NavbarBottom from "../components/NavbarBottom";
 import NavbarTop from "../components/Navbartop";
 import CreatePost from "../components/CreatePost";
-import FeedHome from "../components/FeedHome";
-const Home: NextPage = () => {
+import UserProfile from "../components/UserProfile";
+import FeedContent from "../components/FeedContent";
+const Profile: NextPage = () => {
   return (
     <div className={styles.layout}>
       <NavbarTop></NavbarTop>
       <Navbar></Navbar>
-      <FeedHome></FeedHome>
+      <div className={styles.layouts}>
+        <UserProfile></UserProfile>
+        <Feed></Feed>
+      </div>
       <Sidebar></Sidebar>
       <NavbarBottom></NavbarBottom>
     </div>
   );
 };
 
-export default Home;
+export default Profile;
