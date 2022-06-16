@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React from "react";
+import React, { useState } from "react";
 import styles from "../styles/feedcontent.module.scss";
 import dumb from "../public/dummypic.webp";
 import { Avatar } from "@nextui-org/react";
@@ -7,8 +7,40 @@ import Upvote from "../public/arrow-up-outline.svg";
 import Downvote from "../public/arrow-down-outline.svg";
 import Recaw from "../public/repeat-outline.svg";
 import Opinion from "../public/ear-outline.svg";
+import Comment from "./Comment";
 
 function FeedContent() {
+  const [UpVote, setUpvote] = useState(0);
+  const [DownVote, setDownvote] = useState(0);
+  const [Cawwed, setCawwed] = useState(0);
+  const [voteCount, setVoteCount] = useState(54);
+  const [showComments, setShowComments] = useState(false);
+  const Upvoted = () => {
+    if (DownVote === 1) {
+      setVoteCount((old) => old + 2);
+    } else {
+      setVoteCount((old) => old + 1);
+    }
+    setUpvote(1);
+    setDownvote(0);
+  };
+  const Downvoted = () => {
+    if (UpVote === 1) {
+      setVoteCount((old) => old - 2);
+    } else {
+      setVoteCount((old) => old - 1);
+    }
+    setDownvote(1);
+    setUpvote(0);
+  };
+
+  const cawwedFn = () => {
+    setCawwed(1);
+  };
+
+  const showCommentsFn = () => {
+    setShowComments((old) => !old);
+  };
   return (
     <div className={styles.base}>
       <div className={styles.profile}>
@@ -19,8 +51,12 @@ function FeedContent() {
           />
         </div>
         <div className={styles.profile__info}>
-          <div className={styles.profile__name}>Gaurav</div>
-          <div className={styles.profile__username}>@GK75</div>
+          <a href="#" className={styles.pseudoBtn}>
+            <div className={styles.profile__name}>Gaurav</div>
+          </a>
+          <a className={styles.pseudoBtn} href="#">
+            <div className={styles.profile__username}>@GK75</div>
+          </a>
         </div>
       </div>
       <div className={styles.text}>
@@ -37,19 +73,43 @@ function FeedContent() {
       </div>
       <div className={styles.btns}>
         <div className={styles.btn}>
-          <Image src={Upvote} alt="upvote"></Image>
+          <button
+            className={`${
+              UpVote === 1 ? styles.pseudoBtnUpvote : styles.pseudoBtn
+            }`}
+            onClick={() => Upvoted()}
+          >
+            <Image src={Upvote} alt="upvote"></Image>
+          </button>
         </div>
-        <div className={styles.votes}>69</div>
+        <div className={styles.votes}>{voteCount}</div>
         <div className={styles.btn}>
-          <Image src={Downvote} alt="downvote"></Image>
+          <button
+            className={`${
+              DownVote === 1 ? styles.pseudoBtnDownvote : styles.pseudoBtn
+            }`}
+            onClick={() => Downvoted()}
+          >
+            <Image src={Downvote} alt="downvote"></Image>
+          </button>
         </div>
         <div className={styles.btn}>
-          <Image src={Recaw} alt="Recaw"></Image>
+          <button
+            className={`${
+              Cawwed === 1 ? styles.pseudoBtnCaw : styles.pseudoBtn
+            }`}
+            onClick={() => cawwedFn()}
+          >
+            <Image src={Recaw} alt="Recaw"></Image>
+          </button>
         </div>
         <div className={styles.btn}>
-          <Image src={Opinion} alt="Opinion"></Image>
+          <button className={styles.pseudoBtn} onClick={() => showCommentsFn()}>
+            <Image src={Opinion} alt="Opinion"></Image>
+          </button>
         </div>
       </div>
+      {showComments && <Comment></Comment>}
     </div>
   );
 }

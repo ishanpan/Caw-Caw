@@ -11,9 +11,12 @@ export class Content {
   @Column()
   category: string;
   @Column()
-  likes: number;
+  votes: number;
   @Column()
   comments: number;
   @Column()
   recaws: number;
+  @Column({ nullable: true })
+  image_url: string;
 }
+//create upvote and downvote table.

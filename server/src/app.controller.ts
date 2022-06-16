@@ -24,9 +24,4 @@ export class AppController {
   async login(@Request() req, @Body() createUserDto: CreateUserDto) {
     return this.authService.login(createUserDto.password);
   }
-
-  @Get('profile')
-  getProfile(@Request() req) {
-    return req.user;
-  }
 }

@@ -14,7 +14,7 @@ export class SignupService {
   ) {}
   async add(CreateUserDto: CreateUserDto): Promise<void> {
     const user = new User();
-    user.id = Math.random().toString(36).slice(2, 9); // for internal use only.
+    user.id = 'u' + Math.random().toString(36).slice(2, 9); // for internal use only.
     user.email = CreateUserDto.email;
     user.password = CreateUserDto.password;
     await this.usersRepository.save(user);

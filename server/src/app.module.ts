@@ -9,31 +9,39 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
+import { PostService } from './post/post.service';
+import { PostController } from './post/post.controller';
+import { PostModule } from './post/post.module';
+import { Content } from './entities/content.entity';
+import { VoteUser } from './entities/vote-user.entity';
+import { CommentPost } from './entities/comment-post.entity';
+import { ProfileService } from './profile/profile.service';
+import { ProfileController } from './profile/profile.controller';
+import { ProfileModule } from './profile/profile.module';
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
       name: 'default',
       type: 'postgres',
+      host: 'localhost',
       username: 'postgres',
       password: 'postgres',
       database: 'postgres',
-      port: 5432,
+      port: 8000,
       url: process.env.DATABASE_URL,
       entities: ['dist/entities/*.entity{.js,.ts}'],
-      synchronize: false,
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
-      },
+      synchronize: true,
     }),
-    TypeOrmModule.forFeature([User]),
+    TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost]),
     SignupModule,
     SigninModule,
     AuthModule,
     UsersModule,
+    PostModule,
+    ProfileModule,
   ],
-  controllers: [AppController],
-  providers: [AppService, JwtAuthGuard],
+  controllers: [AppController, PostController, ProfileController],
+  providers: [AppService, JwtAuthGuard, PostService, ProfileService],
 })
 export class AppModule {}

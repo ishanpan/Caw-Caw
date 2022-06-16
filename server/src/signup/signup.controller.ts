@@ -2,9 +2,6 @@ import { Controller, Post, Body } from '@nestjs/common';
 import { CreateUserDto } from 'src/DTO/create-user.dto';
 import { SignupService } from './signup.service';
 
-//Sign Up POST = X
-// Sign up using password
-
 @Controller('signup')
 export class SignupController {
   constructor(private readonly SignupService: SignupService) {}
