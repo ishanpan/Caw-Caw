@@ -5,7 +5,7 @@ import { Textarea, Button, css } from "@nextui-org/react";
 import AttachIcon from "../public/images-outline.svg";
 
 function CreatePost() {
-  const textareaRef = React.useRef(null);
+  const textareaRef: any = React.useRef(null);
   const hello = () => {
     textareaRef.current.value = "";
   };
