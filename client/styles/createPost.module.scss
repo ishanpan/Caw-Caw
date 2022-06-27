@@ -1,3 +1,5 @@
+@import "_mixins";
+@import "_typography";
 .base {
   background-color: #faf9f6;
   border-radius: 1rem;
@@ -32,8 +34,16 @@
   align-items: center;
   justify-content: flex-end;
   margin: 1rem;
+  @include respond(tab-port) {
+    flex-wrap: wrap;
+  }
 }
 
+.img {
+  @include respond(small-desktop) {
+    margin: 2rem;
+  }
+}
 .btnIcon {
   height: 1.8rem;
   width: 1.8rem;

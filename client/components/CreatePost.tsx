@@ -3,9 +3,12 @@ import styles from "../styles/createPost.module.scss";
 import Image from "next/image";
 import { Textarea, Button, css } from "@nextui-org/react";
 import AttachIcon from "../public/images-outline.svg";
+import { useState } from "react";
 
 function CreatePost() {
   const textareaRef: any = React.useRef(null);
+  const [selectedImage, setSelectedImage] = useState(null);
+
   const hello = () => {
     textareaRef.current.value = "";
   };
@@ -20,8 +23,32 @@ function CreatePost() {
         // onChange={hello}
       ></Textarea>
       <div className={styles.btns}>
+        {selectedImage && (
+          <div className={styles.img}>
+            <img
+              alt="not fount"
+              src={URL.createObjectURL(selectedImage)}
+              style={{
+                borderRadius: "0.5rem",
+              }}
+              width={"400"}
+            />
+          </div>
+        )}
+
         <div className={styles.btnIcon}>
-          <Image src={AttachIcon} alt="attach"></Image>
+          <label>
+            <Image src={AttachIcon} alt="attach"></Image>
+            <input
+              type="file"
+              name="uploadedImage"
+              onChange={(event) => {
+                console.log(event.target.files[0]);
+                setSelectedImage(event.target.files[0]);
+              }}
+              style={{ display: "none" }}
+            />
+          </label>
         </div>
         <Button
           className={styles.btn}
