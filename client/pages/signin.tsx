@@ -5,7 +5,7 @@ import Image from "next/image";
 import crowLogo from "../public/303906.svg";
 import Select from "react-select";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import Auth from "../components/Auth";
+import Auth from "../components/AuthSignIn";
 
 interface IFormInput {
   Email: string;
@@ -33,9 +33,3 @@ const SignIn: NextPage = () => {
 };
 
 export default SignIn;
-
-function handleSubmit(
-  onSubmit: SubmitHandler<IFormInput>
-): import("react").FormEventHandler<HTMLFormElement> | undefined {
-  throw new Error("Function not implemented.");
-}

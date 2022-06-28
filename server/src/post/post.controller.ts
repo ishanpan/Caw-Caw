@@ -4,11 +4,11 @@ import {
   Post,
   Req,
   Get,
-  UseInterceptors,
-  UploadedFile,
+  Request,
+  Param,
 } from '@nestjs/common';
 import { createPostDto } from 'src/DTO/create-post.dto';
-import { Request } from 'express';
+
 import { PostService } from './post.service';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { changeVoteDto } from 'src/DTO/change-votes.dto';
@@ -23,23 +23,30 @@ export class PostController {
     const send = await this.postService.getAll();
     return send;
   }
+
+  @Get(':id')
+  async getPostById(@Param() params) {
+    return this.postService.getById(params.id);
+  }
   @Post('vote')
-  async Voted(@Body() changeVoteDto: changeVoteDto) {
-    const re = await this.postService.changeVote(changeVoteDto);
-    return re;
+  async Voted(@Body() changeVoteDto: changeVoteDto, @Request() req) {
+    this.postService.changeVote(changeVoteDto, req.user.id);
+    return 'sucess';
   }
 
+  @Get('comment/:id')
+  async getComments(@Param() params) {
+    console.log('hi');
+    return await this.postService.getComments(params.id);
+  }
   @Post('comment')
-  async createComment(@Body() createCommentDto: createCommentDto) {
-    await this.postService.createComment(createCommentDto);
+  async createComment(@Body() createCommentDto: createCommentDto, @Req() req) {
+    await this.postService.createComment(createCommentDto, req.user.id);
   }
 
   @Post()
-  async createPost(
-    @Body() createPostDto: createPostDto,
-    @Req() request: Request,
-  ) {
-    await this.postService.createPost(createPostDto);
+  async createPost(@Body() createPostDto: createPostDto, @Req() req) {
+    await this.postService.createPost(createPostDto, req.user.id);
     return 'post created';
   }
 

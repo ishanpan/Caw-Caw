@@ -23,33 +23,34 @@ export class PostService {
     return allPosts;
   }
 
-  async createPost(createPostDto: createPostDto) {
+  async getById(postId: string) {
+    const post = await this.postRepository.findOneOrFail({
+      post_id: postId,
+    });
+    return post;
+  }
+
+  async createPost(createPostDto: createPostDto, id: string) {
     const post = new Content();
-    post.op_id = post.post_id = 'p' + Math.random().toString(36).slice(2, 12);
+    post.op_id = id;
+    post.post_id = 'p' + Math.random().toString(36).slice(2, 12);
     post.text = createPostDto.post_text;
     post.votes = 0;
     post.recaws = 0;
     post.category = ''; // category will depend on tags
     post.comments = 0;
-    post.image_url = createPostDto.image_url;
+    // post.image_url = createPostDto.image_url;
     await this.postRepository.save(post);
   }
 
-  async createComment(createCommentDto: createCommentDto) {
-    const comment = new CommentPost();
-    comment.post_id = createCommentDto.post_id;
-    comment.description = createCommentDto.text;
-    comment.user_id = '1';
-    await this.CommentPostRepository.save(comment);
-  }
-
-  async changeVote(changeVoteDto: changeVoteDto) {
+  async changeVote(changeVoteDto: changeVoteDto, id: string) {
     const updateVotes = await this.postRepository.findOne({
       post_id: changeVoteDto.post_id,
     });
 
     const vote = new VoteUser();
     vote.post_id = changeVoteDto.post_id;
+    vote.user_id = id;
     // user_id
     if (changeVoteDto.type === 0) {
       updateVotes.votes = updateVotes.votes + 1;
@@ -58,9 +59,25 @@ export class PostService {
       updateVotes.votes = updateVotes.votes - 1;
       vote.VoteT = 1;
     } else {
+      return 'Invalid arguments';
     }
     this.postRepository.save(updateVotes);
     this.VoteUserRepository.save(vote);
     return updateVotes;
+  }
+
+  async createComment(createCommentDto: createCommentDto, userId: string) {
+    const comment = new CommentPost();
+    comment.post_id = createCommentDto.post_id;
+    comment.description = createCommentDto.text;
+    comment.user_id = userId;
+    await this.CommentPostRepository.save(comment);
+  }
+
+  async getComments(postId: string) {
+    console.log('hi there');
+    return await this.CommentPostRepository.find({
+      post_id: postId,
+    });
   }
 }

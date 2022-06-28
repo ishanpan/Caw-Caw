@@ -3,6 +3,9 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from 'src/DTO/create-user.dto';
+import * as bcrypt from 'bcrypt';
+
+import { saltRounds } from 'src/auth/constants';
 
 // hashing service create
 // use for reset
@@ -16,8 +19,14 @@ export class SignupService {
     const user = new User();
     user.id = 'u' + Math.random().toString(36).slice(2, 9); // for internal use only.
     user.email = CreateUserDto.email;
-    user.password = CreateUserDto.password;
-    await this.usersRepository.save(user);
+    await bcrypt.hash(
+      CreateUserDto.password,
+      saltRounds,
+      async (hash: string) => {
+        user.password = hash;
+        await this.usersRepository.save(user);
+      },
+    );
   }
 
   async checkNew(CreateUserDto: CreateUserDto): Promise<User> {

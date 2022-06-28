@@ -18,6 +18,7 @@ import { CommentPost } from './entities/comment-post.entity';
 import { ProfileService } from './profile/profile.service';
 import { ProfileController } from './profile/profile.controller';
 import { ProfileModule } from './profile/profile.module';
+import { Profile } from './entities/profile.entity';
 
 @Module({
   imports: [
@@ -33,7 +34,7 @@ import { ProfileModule } from './profile/profile.module';
       entities: ['dist/entities/*.entity{.js,.ts}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost]),
+    TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost, Profile]),
     SignupModule,
     SigninModule,
     AuthModule,
@@ -42,6 +43,16 @@ import { ProfileModule } from './profile/profile.module';
     ProfileModule,
   ],
   controllers: [AppController, PostController, ProfileController],
-  providers: [AppService, JwtAuthGuard, PostService, ProfileService],
+  providers: [
+    AppService,
+    JwtAuthGuard,
+    PostService,
+    ProfileService,
+
+    {
+      provide: APP_GUARD,
+      useClass: JwtAuthGuard,
+    },
+  ],
 })
 export class AppModule {}

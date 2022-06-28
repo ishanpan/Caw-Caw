@@ -7,7 +7,7 @@ import Select from "react-select";
 import { useForm, Controller, SubmitHandler } from "react-hook-form";
 import { ReactPropTypes } from "react";
 
-export default function Auth(props: any) {
+export default function AuthSignIn(props: any) {
   return (
     <div className={styles.base}>
       <div className={styles.logo}>
