@@ -2,6 +2,8 @@ import { Body, Controller, Get, Put, Request } from '@nestjs/common';
 import { UpdateProfile } from 'src/DTO/update-profile.dto';
 import { ProfileService } from './profile.service';
 
+//upload profile picture
+
 @Controller('profile')
 export class ProfileController {
   //Update user profile here too

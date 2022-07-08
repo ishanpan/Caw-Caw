@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Profile } from './profile.entity';
 
 @Entity()
 export class Content {
@@ -17,6 +18,8 @@ export class Content {
   @Column()
   recaws: number;
   @Column({ nullable: true })
-  image_url: string;
+  image_id: string;
+
+  @ManyToOne(() => Profile, (profile) => profile.posts)
+  poster: Profile;
 }
-//create upvote and downvote table.

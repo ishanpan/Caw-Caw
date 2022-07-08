@@ -18,10 +18,14 @@ import { JwtStrategy } from 'src/auth/jwt.strategy';
 import { AuthService } from 'src/auth/auth.service';
 import { CommentPost } from 'src/entities/comment-post.entity';
 import { VoteUser } from 'src/entities/vote-user.entity';
+import { UsersService } from 'src/users/users.service';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost])],
-  providers: [SignupService],
+  imports: [
+    TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost]),
+    UsersModule,
+  ],
+  providers: [SignupService, UsersService],
   controllers: [SignupController],
 })
 export class SignupModule {}

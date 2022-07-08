@@ -6,7 +6,7 @@ import { Card } from "@nextui-org/react";
 function Sidebar() {
   return (
     <div className={styles.base}>
-      <Input labelPlaceholder="Search" status="success" size="lg" />
+      <Input labelPlaceholder="Search" color="primary" bordered size="lg" />
 
       <Card bordered shadow={false} css={{ mw: "20rem" }}>
         <Card clickable bordered css={{ mw: "20rem" }}>

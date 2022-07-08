@@ -11,10 +11,30 @@ function CreatePost() {
   const [selectedImage, setSelectedImage] = useState();
 
   const hello = () => {
-    textareaRef.current.value = "";
+    const post = async () => {
+      const res = await fetch(
+        "http://localhost:3001/post/",
+
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            post_text: textareaRef.current.value,
+            image_url: "abc",
+          }),
+        }
+      );
+
+      console.log(res);
+    };
+    post();
   };
 
-  const handleImage = (e: any) => [setSelectedImage(e?.target?.files[0])];
+  const handleImage = (e: any) => {
+    console.log("hi");
+  };
 
   return (
     <div className={styles.base}>
@@ -23,6 +43,8 @@ function CreatePost() {
         minRows={10}
         cols={140}
         ref={textareaRef}
+        bordered
+        color="primary"
         // onChange={hello}
       ></Textarea>
       <div className={styles.btns}>

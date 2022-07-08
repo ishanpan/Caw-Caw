@@ -7,6 +7,7 @@ import { changeVoteDto } from 'src/DTO/change-votes.dto';
 import { VoteUser } from 'src/entities/vote-user.entity';
 import { createCommentDto } from 'src/DTO/create-comment.dto';
 import { CommentPost } from 'src/entities/comment-post.entity';
+import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 
 @Injectable()
 export class PostService {
@@ -20,13 +21,37 @@ export class PostService {
 
   async getAll() {
     const allPosts = await this.postRepository.find();
-    return allPosts;
+    const storage = getStorage();
+    const allPostsLink = await Promise.all(
+      allPosts.map(async (post) => {
+        const imageURL = await getDownloadURL(
+          ref(storage, `image/${post.image_id}`),
+        )
+          .then((url) => {
+            return url;
+          })
+          .catch((err) => {
+            console.log(err);
+            return null;
+          });
+        post.image_id = imageURL;
+
+        return post;
+      }),
+    );
+
+    return allPostsLink;
   }
 
   async getById(postId: string) {
     const post = await this.postRepository.findOneOrFail({
       post_id: postId,
     });
+    const storage = getStorage();
+
+    post.image_id = await getDownloadURL(
+      ref(storage, `image/${post.image_id}`),
+    );
     return post;
   }
 
@@ -39,7 +64,7 @@ export class PostService {
     post.recaws = 0;
     post.category = ''; // category will depend on tags
     post.comments = 0;
-    // post.image_url = createPostDto.image_url;
+    post.image_id = createPostDto.image_url;
     await this.postRepository.save(post);
   }
 

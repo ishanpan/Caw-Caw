@@ -4,3 +4,4 @@ client/public/sw.js.map
 client/public/sw.js
 server/run.bat
 server/src/signup/saltRounds.ts
+server/src/firebaseConfig.ts

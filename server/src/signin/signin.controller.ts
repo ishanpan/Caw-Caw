@@ -1,5 +1,5 @@
-import { Body, Controller, Post } from '@nestjs/common';
-import { userInfo } from 'os';
+import { Body, Controller, Post, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { AuthService } from 'src/auth/auth.service';
 import { LoginUserDto } from 'src/DTO/login-user';
 import { SigninService } from './signin.service';
@@ -22,7 +22,8 @@ export class SigninController {
         LoginUserDto.email,
         LoginUserDto.password,
       );
-      return this.AuthService.generateJWT(user.id);
+      const token = await this.AuthService.generateJWT(user.id);
+      return token;
     }
   }
 }

@@ -15,7 +15,7 @@ export class SignupController {
 
     const isExisting = await this.SignupService.checkNew(createUserDto);
     if (isExisting === undefined) {
-      this.SignupService.add(createUserDto);
+      await this.SignupService.add(createUserDto);
     } else {
       return 'User already exists';
     }

@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryColumn, JoinColumn } from 'typeorm';
+import { Content } from './content.entity';
 
 @Entity()
 export class Profile {
@@ -12,4 +13,7 @@ export class Profile {
   bio: string;
   @Column()
   image: string;
+
+  @OneToMany(() => Content, (content) => content.op_id)
+  posts: [];
 }

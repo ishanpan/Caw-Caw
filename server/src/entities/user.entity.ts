@@ -7,5 +7,5 @@ export class User {
   @Column({ nullable: true })
   email: string;
   @Column({ nullable: true })
-  password: string;
+  hashedPassword: string;
 }

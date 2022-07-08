@@ -11,6 +11,7 @@ import NavbarTop from "../components/Navbartop";
 import CreatePost from "../components/CreatePost";
 import UserProfile from "../components/UserProfile";
 import FeedContent from "../components/FeedContent";
+import FeedHome from "../components/FeedHome";
 const Profile: NextPage = () => {
   return (
     <div className={styles.layout}>
@@ -18,7 +19,7 @@ const Profile: NextPage = () => {
       <Navbar></Navbar>
       <div className={styles.layouts}>
         <UserProfile></UserProfile>
-        <Feed></Feed>
+        <FeedHome></FeedHome>
       </div>
       <Sidebar></Sidebar>
       <NavbarBottom></NavbarBottom>

@@ -1,6 +1,15 @@
 .commentSection {
-  margin-top: 1rem;
+  margin-top: 2rem;
 }
 .comment {
   margin: 1rem;
+}
+
+.replyComment {
+  display: flex;
+  flex-direction: column;
+}
+.replyComment button {
+  align-self: flex-end;
+  margin-top: 0.75rem;
 }

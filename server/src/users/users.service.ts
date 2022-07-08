@@ -12,23 +12,27 @@ export class UsersService {
 
   async findOne(email: string): Promise<User> {
     const user = await this.usersRepository.findOne({
-      email,
+      email: email,
     });
-
     return user;
   }
+
   async checkNewUser(CreateUserDto: CreateUserDto): Promise<User> {
     const emailCheck = await this.usersRepository.findOne({
       email: CreateUserDto.email,
     });
-
     return emailCheck;
   }
 
-  async add(CreateUserDto: CreateUserDto): Promise<void> {
-    const user = new User();
-    user.id = Math.random().toString(36).slice(2, 9); // for internal use only.
-    user.email = CreateUserDto.email;
-    await this.usersRepository.save(user);
+  async add(
+    CreateUserDto: CreateUserDto,
+    hashedPassword: string,
+  ): Promise<void> {
+    const userD = new User();
+    userD.id = Math.random().toString(36).slice(2, 9); // for internal use only.
+    userD.email = CreateUserDto.email;
+    console.log(hashedPassword);
+    userD.hashedPassword = hashedPassword;
+    await this.usersRepository.save(userD);
   }
 }

@@ -1,5 +1,5 @@
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "../styles/feedcontent.module.scss";
 import { Avatar } from "@nextui-org/react";
 import Upvote from "../public/arrow-up-outline.svg";
@@ -8,12 +8,27 @@ import Recaw from "../public/repeat-outline.svg";
 import Opinion from "../public/ear-outline.svg";
 import Comment from "./Comment";
 
-function FeedContent() {
+function FeedContent(props) {
   const [UpVote, setUpvote] = useState(0);
   const [DownVote, setDownvote] = useState(0);
   const [Cawwed, setCawwed] = useState(0);
   const [voteCount, setVoteCount] = useState(54);
   const [showComments, setShowComments] = useState(false);
+  console.log("hello");
+
+  const syncVote = async (voted: number) => {
+    await fetch("http://localhost:3001/post/vote", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        post_id: props.data.post_id,
+        type: voted,
+      }),
+    });
+  };
+
   const Upvoted = () => {
     if (DownVote === 1) {
       setVoteCount((old) => old + 2);
@@ -22,6 +37,7 @@ function FeedContent() {
     }
     setUpvote(1);
     setDownvote(0);
+    syncVote(0);
   };
   const Downvoted = () => {
     if (UpVote === 1) {
@@ -31,6 +47,7 @@ function FeedContent() {
     }
     setDownvote(1);
     setUpvote(0);
+    syncVote(1);
   };
 
   const cawwedFn = () => {
@@ -44,10 +61,7 @@ function FeedContent() {
     <div className={styles.base}>
       <div className={styles.profile}>
         <div className={styles.profile__image}>
-          <Avatar
-            src="https://i.pravatar.cc/150?u=a042581f4e29026024d"
-            size="lg"
-          />
+          <Avatar src={props.data.image_id} size="lg" />
         </div>
         <div className={styles.profile__info}>
           <a href="#" className={styles.pseudoBtn}>
@@ -58,18 +72,7 @@ function FeedContent() {
           </a>
         </div>
       </div>
-      <div className={styles.text}>
-        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Asperiores
-        officiis veniam incidunt voluptates eum repellendus, veritatis ut dicta,
-        debitis, eaque explicabo non facere amet odit fugit architecto numquam.
-        Labore, beatae? Lorem ipsum dolor sit amet consectetur adipisicing elit.
-        In suscipit, culpa, molestias hic vitae doloremque nam perspiciatis
-        deleniti tenetur possimus explicabo laboriosam ut. Suscipit vel
-        repellendus iste expedita dignissimos hic! Lorem ipsum dolor sit amet
-        consectetur adipisicing elit. Deserunt laudantium quas, eius temporibus
-        et at illo? Quo vel, magni in iure mollitia temporibus adipisci ullam
-        maiores eveniet cum similique eum.
-      </div>
+      <div className={styles.text}>{props.data.text}</div>
       <div className={styles.btns}>
         <div className={styles.btn}>
           <button
@@ -81,7 +84,7 @@ function FeedContent() {
             <Image src={Upvote} alt="upvote"></Image>
           </button>
         </div>
-        <div className={styles.votes}>{voteCount}</div>
+        <div className={styles.votes}>{props.data.votes}</div>
         <div className={styles.btn}>
           <button
             className={`${
@@ -108,7 +111,9 @@ function FeedContent() {
           </button>
         </div>
       </div>
-      {showComments && <Comment></Comment>}
+      {showComments && (
+        <Comment reComments={showComments} id={props.data.post_id}></Comment>
+      )}
     </div>
   );
 }

@@ -32,12 +32,7 @@ function Navbar() {
           <span>Profile</span>
         </div>
       </Link>
-      <div className={styles.sidebarLogoText}>
-        <div className={styles.sidebarLogo}>
-          <Image src={exploreLogo} alt="Explore"></Image>
-        </div>
-        <span>Explore</span>
-      </div>
+
       <div className={styles.sidebarLogoText}>
         <div className={styles.sidebarLogo}>
           <Image src={lightLogo} alt="Dark"></Image>

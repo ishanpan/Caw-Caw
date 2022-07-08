@@ -6,7 +6,6 @@ import { User } from './entities/user.entity';
 import { SignupModule } from './signup/signup.module';
 import { SigninModule } from './signin/signin.module';
 import { AuthModule } from './auth/auth.module';
-import { UsersModule } from './users/users.module';
 import { APP_GUARD } from '@nestjs/core';
 import { JwtAuthGuard } from './auth/jwt-auth.guard';
 import { PostService } from './post/post.service';
@@ -19,6 +18,7 @@ import { ProfileService } from './profile/profile.service';
 import { ProfileController } from './profile/profile.controller';
 import { ProfileModule } from './profile/profile.module';
 import { Profile } from './entities/profile.entity';
+import { UsersModule } from './users/users.module';
 
 @Module({
   imports: [
