@@ -8,16 +8,8 @@ function FeedHome(props: any) {
   const [posts, setPosts]: any = useState([]);
 
   useEffect(() => {
-    const fetchPosts = async () => {
-      const fetchPost = await fetch("http://localhost:3001/post/");
-      const res = await fetchPost.json();
-      console.log(res);
-      setPosts(res);
-    };
-
-    fetchPosts();
-  }, []);
-
+    setPosts(props.childData);
+  }, [props.childData]);
   return (
     <div className={styles.base}>
       <CreatePost></CreatePost>

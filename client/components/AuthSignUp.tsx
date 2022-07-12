@@ -1,13 +1,52 @@
-import { NextPage } from "next";
 import styles from "../styles/signup.module.scss";
-import { Input, Spacer, Button, createTheme, Text } from "@nextui-org/react";
+import { Input, Spacer, Button } from "@nextui-org/react";
 import Image from "next/image";
 import crowLogo from "../public/303906.svg";
-import Select from "react-select";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
-import { ReactPropTypes } from "react";
+import * as yup from "yup";
+import { useFormik } from "formik";
+import Link from "next/link";
+
+const validationSchema = yup.object({
+  email: yup
+    .string()
+    .email("Enter a valid email")
+    .required("Email is required"),
+  password: yup
+    .string()
+    .min(8, "Password should be of minimum 8 characters length")
+    .required("Password is required"),
+});
 
 export default function AuthSignUp(props: any) {
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+    validationSchema: validationSchema,
+    onSubmit: (values) => {
+      const sendVal = async () => {
+        const res = await fetch("http://localhost:3001/signin", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: values.email,
+            password: values.password,
+            confirmPassword: values.confirmPassword,
+          }),
+        });
+        const b = await res.json();
+        localStorage.setItem("token", b.access_token);
+        console.log(b);
+      };
+
+      sendVal();
+    },
+  });
+
   return (
     <div className={styles.base}>
       <div className={styles.logo}>
@@ -18,78 +57,50 @@ export default function AuthSignUp(props: any) {
 
         <Spacer y={1.5} />
 
-        <form onSubmit={props.handleSubmit(props.onSubmit)}>
-          <Controller
-            name="Email"
-            control={props.control}
-            defaultValue=""
-            rules={{
-              required: true,
-              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/i,
-            }}
-            render={({ field }) => (
-              <Input
-                size="xl"
-                width="300px"
-                labelPlaceholder="Email"
-                helperText={props.errors.Email ? "Invalid Email" : ""}
-                helperColor="error"
-                {...field}
-              />
-            )}
+        <form onSubmit={formik.handleSubmit}>
+          <Input
+            size="xl"
+            width="300px"
+            id="email"
+            name="email"
+            labelPlaceholder="Email"
+            // value={formik.values.email}
+            onChange={formik.handleChange}
+            // helperText={formik.touched.email && formik.errors.email}
+            helperColor="error"
           />
 
           <Spacer y={1.75} />
 
-          <Controller
-            name="Password"
-            control={props.control}
-            defaultValue=""
-            rules={{ min: 8, required: true }}
-            render={({ field }) => (
-              <Input.Password
-                size="xl"
-                labelPlaceholder="Password"
-                helperText={
-                  props.errors.Password
-                    ? "Minimum length of password should be 8"
-                    : ""
-                }
-                helperColor="error"
-                {...field}
-              />
-            )}
-          />
-          <Spacer y={1.75} />
-          <Controller
-            name="Password"
-            control={props.control}
-            defaultValue=""
-            rules={{ min: 8, required: true }}
-            render={({ field }) => (
-              <Input.Password
-                size="xl"
-                labelPlaceholder="Confirm Password"
-                helperText={
-                  props.errors.Password
-                    ? "Minimum length of password should be 8"
-                    : ""
-                }
-                helperColor="error"
-                {...field}
-              />
-            )}
+          <Input.Password
+            size="xl"
+            id="password"
+            name="password"
+            labelPlaceholder="Password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            // helperText={formik.touched.password && formik.errors.password}
           />
 
           <Spacer y={1.75} />
+
+          <Input.Password
+            size="xl"
+            id="confirmPassword"
+            name="confirmPassword"
+            labelPlaceholder="Confirm Password"
+            value={formik.values.password}
+            onChange={formik.handleChange}
+            // helperText={formik.touched.password && formik.errors.password}
+          />
 
           <Button type="submit" color="secondary" size="xl">
-            Sign Up
+            Sign In
           </Button>
         </form>
         <Spacer y={1} />
         <h3 className={styles.h3Text}>
-          Don&apos;t have an account? <a href="#">Sign Up</a>
+          Already have an account? <Link href="/signin">Sign In</Link>
         </h3>
       </div>
     </div>

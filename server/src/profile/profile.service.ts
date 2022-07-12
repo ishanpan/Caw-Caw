@@ -10,22 +10,40 @@ export class ProfileService {
     @InjectRepository(Profile) private ProfileRepository: Repository<Profile>,
   ) {}
 
-  async getProfile(userid: string) {
-    const profile = await this.ProfileRepository.findOneOrFail({
-      id: userid,
-    });
+  async addProfile(userId: string, tempUsername: string) {
+    const profile = new Profile();
+    profile.id = userId;
+    profile.username = tempUsername;
+    await this.ProfileRepository.save(profile);
+  }
+
+  async getProfile(username: string) {
+    const profile = await this.ProfileRepository.findOne(
+      {
+        username: username,
+      },
+      { relations: ['posts'] },
+    );
     const { id, ...user } = profile;
     return user;
   }
 
+  async getProfileById(id: string) {
+    const profile = await this.ProfileRepository.findOneOrFail({
+      id: id,
+    });
+    return profile;
+  }
+
   async updateDetails(updateProfile: UpdateProfile, id: string) {
     const profile = await this.ProfileRepository.findOneOrFail({
-      id,
+      id: id,
     });
 
     profile.name = updateProfile.name;
     profile.username = updateProfile.username;
     profile.bio = updateProfile.bio;
     profile.image = updateProfile.image;
+    return await this.ProfileRepository.save(profile);
   }
 }

@@ -25,7 +25,8 @@ function Feed() {
   return (
     <div className={styles.base}>
       {posts &&
-        posts.map((data) => {
+        posts.map((data: any) => {
+          // eslint-disable-next-line react/jsx-key
           return <FeedContent props={data}></FeedContent>;
         })}
     </div>

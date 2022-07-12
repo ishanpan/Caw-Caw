@@ -19,13 +19,14 @@ import { AuthService } from 'src/auth/auth.service';
 import { CommentPost } from 'src/entities/comment-post.entity';
 import { VoteUser } from 'src/entities/vote-user.entity';
 import { UsersService } from 'src/users/users.service';
+import { Profile } from 'src/entities/profile.entity';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost]),
+    TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost, Profile]),
     UsersModule,
   ],
-  providers: [SignupService, UsersService],
+  providers: [SignupService, UsersService, ProfileService],
   controllers: [SignupController],
 })
 export class SignupModule {}

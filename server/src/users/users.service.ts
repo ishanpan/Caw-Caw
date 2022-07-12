@@ -3,11 +3,14 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateUserDto } from 'src/DTO/create-user.dto';
+import { Profile } from 'src/entities/profile.entity';
+import { ProfileService } from 'src/profile/profile.service';
 
 @Injectable()
 export class UsersService {
   constructor(
     @InjectRepository(User) private usersRepository: Repository<User>,
+    private profileService: ProfileService,
   ) {}
 
   async findOne(email: string): Promise<User> {
@@ -34,5 +37,7 @@ export class UsersService {
     console.log(hashedPassword);
     userD.hashedPassword = hashedPassword;
     await this.usersRepository.save(userD);
+    const tempUsername = CreateUserDto.email.slice(0, 5);
+    await this.profileService.addProfile(userD.id, tempUsername);
   }
 }

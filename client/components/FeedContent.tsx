@@ -8,12 +8,13 @@ import Recaw from "../public/repeat-outline.svg";
 import Opinion from "../public/ear-outline.svg";
 import Comment from "./Comment";
 
-function FeedContent(props) {
+function FeedContent(props: any) {
   const [UpVote, setUpvote] = useState(0);
   const [DownVote, setDownvote] = useState(0);
   const [Cawwed, setCawwed] = useState(0);
   const [voteCount, setVoteCount] = useState(54);
   const [showComments, setShowComments] = useState(false);
+  const [post, setPost] = useState(props.data);
   console.log("hello");
 
   const syncVote = async (voted: number) => {
@@ -21,6 +22,7 @@ function FeedContent(props) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
         post_id: props.data.post_id,
@@ -65,10 +67,12 @@ function FeedContent(props) {
         </div>
         <div className={styles.profile__info}>
           <a href="#" className={styles.pseudoBtn}>
-            <div className={styles.profile__name}>Gaurav</div>
+            <div className={styles.profile__name}>{post.profile.name}</div>
           </a>
           <a className={styles.pseudoBtn} href="#">
-            <div className={styles.profile__username}>@GK75</div>
+            <div className={styles.profile__username}>
+              @{post.profile.username}
+            </div>
           </a>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Put, Request } from '@nestjs/common';
+import { Body, Controller, Get, Param, Put, Request } from '@nestjs/common';
 import { UpdateProfile } from 'src/DTO/update-profile.dto';
 import { ProfileService } from './profile.service';
 
@@ -8,14 +8,15 @@ import { ProfileService } from './profile.service';
 export class ProfileController {
   //Update user profile here too
   constructor(private profileService: ProfileService) {}
-  @Get()
-  async profileDetails(@Request() req) {
-    await this.profileService.getProfile(req.user.id);
+  @Get(':username')
+  async profileDetails(@Request() req, @Param() params) {
+    console.log(params.username);
+    return await this.profileService.getProfile(params.username);
   }
 
   @Put()
   async updateProfile(@Body() UpdateProfile: UpdateProfile, @Request() req) {
-    await this.profileService.updateDetails(UpdateProfile, req.user.id);
+    return await this.profileService.updateDetails(UpdateProfile, req.user.id);
   }
 
   @Get('posts')

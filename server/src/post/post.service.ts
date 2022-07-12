@@ -8,6 +8,9 @@ import { VoteUser } from 'src/entities/vote-user.entity';
 import { createCommentDto } from 'src/DTO/create-comment.dto';
 import { CommentPost } from 'src/entities/comment-post.entity';
 import { getStorage, ref, getDownloadURL } from 'firebase/storage';
+import { ProfileService } from 'src/profile/profile.service';
+import { Profile } from 'src/entities/profile.entity';
+import { ReCawDto } from 'src/DTO/re-caw.dto';
 
 @Injectable()
 export class PostService {
@@ -17,10 +20,13 @@ export class PostService {
     private VoteUserRepository: Repository<VoteUser>,
     @InjectRepository(CommentPost)
     private CommentPostRepository: Repository<CommentPost>,
+    private ProfileService: ProfileService,
+    @InjectRepository(Profile) private ProfileRepository: Repository<Profile>,
   ) {}
 
   async getAll() {
     const allPosts = await this.postRepository.find();
+    console.log(allPosts);
     const storage = getStorage();
     const allPostsLink = await Promise.all(
       allPosts.map(async (post) => {
@@ -47,17 +53,19 @@ export class PostService {
     const post = await this.postRepository.findOneOrFail({
       post_id: postId,
     });
-    const storage = getStorage();
+    // const storage = getStorage();
 
-    post.image_id = await getDownloadURL(
-      ref(storage, `image/${post.image_id}`),
-    );
+    // post.image_id = await getDownloadURL(
+    //   ref(storage, `image/${post.image_id}`),
+
+    // );
+    console.log(post.profile);
     return post;
   }
 
   async createPost(createPostDto: createPostDto, id: string) {
     const post = new Content();
-    post.op_id = id;
+
     post.post_id = 'p' + Math.random().toString(36).slice(2, 12);
     post.text = createPostDto.post_text;
     post.votes = 0;
@@ -65,6 +73,12 @@ export class PostService {
     post.category = ''; // category will depend on tags
     post.comments = 0;
     post.image_id = createPostDto.image_url;
+
+    const profile = await this.ProfileRepository.findOneOrFail({
+      id: id,
+    });
+
+    post.profile = profile;
     await this.postRepository.save(post);
   }
 
@@ -104,5 +118,16 @@ export class PostService {
     return await this.CommentPostRepository.find({
       post_id: postId,
     });
+  }
+
+  async reCaw(ReCawDto: ReCawDto, id: string) {
+    const profile = await this.ProfileRepository.findOneOrFail({
+      id: id,
+    });
+
+    const post = await this.postRepository.findOneOrFail({
+      post_id: ReCawDto.postId,
+    });
+    // profile.posts = post;
   }
 }

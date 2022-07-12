@@ -4,14 +4,7 @@ import styles from "../styles/signup.module.scss";
 import Auth from "../components/AuthSignIn";
 
 const SignIn: NextPage = () => {
-  return (
-    <Auth
-    // handleSubmit={handleSubmit}
-    // onSubmit={onSubmit}
-    // // control={control}
-    // errors={errors}
-    ></Auth>
-  );
+  return <Auth></Auth>;
 };
 
 export default SignIn;

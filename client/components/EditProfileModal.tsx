@@ -11,7 +11,7 @@ import React, { Fragment, useEffect } from "react";
 
 import Image from "next/image";
 import Edit from "../public/cog-outline.svg";
-function EditProfileModal(props) {
+function EditProfileModal(props: any) {
   const [visible, setVisible] = React.useState(false);
 
   useEffect(() => {
@@ -23,6 +23,7 @@ function EditProfileModal(props) {
     props.setVisible(false);
     console.log("closed");
   };
+
   return (
     <Fragment>
       <Modal
@@ -50,6 +51,7 @@ function EditProfileModal(props) {
             color="primary"
             size="lg"
             placeholder="Name"
+            value={props.name}
           />
           <Input
             clearable
@@ -58,6 +60,7 @@ function EditProfileModal(props) {
             color="primary"
             size="lg"
             placeholder="Bio"
+            value={props.bio}
           />
 
           <Input
@@ -67,6 +70,7 @@ function EditProfileModal(props) {
             color="primary"
             size="lg"
             placeholder="Caw Handle"
+            value={props.username}
           />
         </Modal.Body>
         <Modal.Footer>

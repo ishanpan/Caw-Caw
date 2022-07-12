@@ -11,6 +11,10 @@ function CreatePost() {
   const [selectedImage, setSelectedImage] = useState();
 
   const hello = () => {
+    const image = async () => {
+      const res = await fetch("http://localhost:3001/post/upload", {});
+    };
+
     const post = async () => {
       const res = await fetch(
         "http://localhost:3001/post/",
@@ -19,6 +23,7 @@ function CreatePost() {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
           },
           body: JSON.stringify({
             post_text: textareaRef.current.value,
@@ -33,7 +38,7 @@ function CreatePost() {
   };
 
   const handleImage = (e: any) => {
-    console.log("hi");
+    setSelectedImage(e.target.files[0]);
   };
 
   return (

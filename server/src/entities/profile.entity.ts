@@ -1,19 +1,27 @@
-import { Column, Entity, OneToMany, PrimaryColumn, JoinColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryColumn,
+  JoinColumn,
+  JoinTable,
+  ManyToMany,
+} from 'typeorm';
 import { Content } from './content.entity';
 
 @Entity()
 export class Profile {
   @PrimaryColumn()
   id: string;
-  @Column()
+  @Column({ nullable: true })
   name: string;
   @Column()
   username: string;
-  @Column()
+  @Column({ nullable: true })
   bio: string;
-  @Column()
+  @Column({ nullable: true })
   image: string;
 
-  @OneToMany(() => Content, (content) => content.op_id)
-  posts: [];
+  @OneToMany(() => Content, (content) => content.profile)
+  posts: Content[];
 }

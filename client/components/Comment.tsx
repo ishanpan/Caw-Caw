@@ -10,7 +10,14 @@ function Comment(props: any) {
   useEffect(() => {
     const commentsFn = async () => {
       const comm = await fetch(
-        `http://localhost:3001/post/comment/${props.id}`
+        `http://localhost:3001/post/comment/${props.id}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+        }
       );
       const commentJ = await comm.json();
       console.log(commentJ);
@@ -25,6 +32,7 @@ function Comment(props: any) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`,
       },
       body: JSON.stringify({
         post_id: `${props.id}`,
@@ -60,7 +68,7 @@ function Comment(props: any) {
       </div>
 
       {comments &&
-        comments.map((data) => {
+        comments.map((data: any) => {
           return (
             <div key={data.id} className={styles.comment}>
               <Card css={{ backgroundColor: "$blue50" }} shadow={false}>
