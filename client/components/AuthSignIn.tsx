@@ -61,28 +61,28 @@ export default function AuthSignIn(props: any) {
             width="300px"
             id="email"
             name="email"
-            labelPlaceholder="Email"
+            placeholder="Email"
             // value={formik.values.email}
             onChange={formik.handleChange}
             // helperText={formik.touched.email && formik.errors.email}
-            helperColor="error"
+            color="error"
           />
 
-          <Spacer y={1.75} />
+          <Spacer y={1} />
 
           <Input.Password
             size="xl"
             id="password"
             name="password"
-            labelPlaceholder="Password"
+            placeholder="Password"
             value={formik.values.password}
             onChange={formik.handleChange}
             // helperText={formik.touched.password && formik.errors.password}
           />
 
-          <Spacer y={1.75} />
+          <Spacer y={1.5} />
 
-          <Button type="submit" color="secondary" size="xl">
+          <Button type="submit" color="error" size="xl">
             Sign In
           </Button>
         </form>

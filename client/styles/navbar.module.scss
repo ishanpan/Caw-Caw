@@ -4,7 +4,7 @@
 .base {
   height: 100vh;
   width: 25vw;
-  background-color: rgb(245, 245, 245);
+  background-color: #1d3557;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -32,9 +32,11 @@
     margin-left: 0.75rem;
     display: none;
   }
+  color: #f1faee;
 }
 .sidebarLogo {
   width: 2.5rem;
+
   @include respond(tab-land) {
     width: 1.75rem;
   }

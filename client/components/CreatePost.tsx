@@ -59,7 +59,7 @@ function CreatePost() {
               alt="not fount"
               src={URL.createObjectURL(selectedImage)}
               style={{
-                borderRadius: "0.5rem",
+                borderRadius: "0.25rem",
               }}
               width={"400"}
             />

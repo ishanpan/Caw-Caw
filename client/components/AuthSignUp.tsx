@@ -15,6 +15,10 @@ const validationSchema = yup.object({
     .string()
     .min(8, "Password should be of minimum 8 characters length")
     .required("Password is required"),
+
+  confirmPassword: yup
+    .string()
+    .oneOf([yup.ref("password"), null], "Passwords must match"),
 });
 
 export default function AuthSignUp(props: any) {
@@ -53,48 +57,55 @@ export default function AuthSignUp(props: any) {
         <Image src={crowLogo} alt="Logo"></Image>
       </div>
       <div className={styles.box}>
-        <h2 className={styles.h2Text}>Sign in to your account</h2>
-
-        <Spacer y={1.5} />
-
+        <h2 className={styles.h2Text}>Sign up for a new account</h2>
+        <Spacer y={1.75} />
         <form onSubmit={formik.handleSubmit}>
           <Input
             size="xl"
             width="300px"
             id="email"
             name="email"
-            labelPlaceholder="Email"
-            // value={formik.values.email}
+            placeholder="Email"
             onChange={formik.handleChange}
-            // helperText={formik.touched.email && formik.errors.email}
-            helperColor="error"
+            onBlur={formik.handleBlur}
+            helperText={
+              formik.touched.email && formik.errors.email
+                ? formik.errors.email
+                : ""
+            }
           />
-
-          <Spacer y={1.75} />
-
+          <Spacer y={1.35} />
           <Input.Password
             size="xl"
             id="password"
             name="password"
-            labelPlaceholder="Password"
+            placeholder="Password"
             value={formik.values.password}
             onChange={formik.handleChange}
-            // helperText={formik.touched.password && formik.errors.password}
+            onBlur={formik.handleBlur}
+            helperText={
+              formik.touched.password && formik.errors.password
+                ? formik.errors.password
+                : ""
+            }
           />
-
-          <Spacer y={1.75} />
-
+          <Spacer y={1.35} />
           <Input.Password
             size="xl"
             id="confirmPassword"
             name="confirmPassword"
-            labelPlaceholder="Confirm Password"
-            value={formik.values.password}
+            placeholder="Confirm Password"
+            value={formik.values.confirmPassword}
             onChange={formik.handleChange}
-            // helperText={formik.touched.password && formik.errors.password}
+            onBlur={formik.handleBlur}
+            helperText={
+              formik.touched.confirmPassword && formik.errors.confirmPassword
+                ? formik.errors.confirmPassword
+                : ""
+            }
           />
-
-          <Button type="submit" color="secondary" size="xl">
+          <Spacer y={1.5} />
+          <Button type="submit" color="error" size="xl">
             Sign In
           </Button>
         </form>

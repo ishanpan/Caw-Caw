@@ -1,7 +1,7 @@
 @import "_mixins";
 @import "_typography";
 .base {
-  background-color: #faf9f6;
+  background-color: #1d3557;
   border-radius: 1rem;
   padding: 1rem;
   display: flex;
@@ -41,7 +41,7 @@
 
 .img {
   @include respond(small-desktop) {
-    margin: 2rem;
+    margin: 1rem;
   }
 }
 .btnIcon {
