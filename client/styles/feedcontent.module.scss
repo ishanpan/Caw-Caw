@@ -34,6 +34,19 @@
 
 .text {
   font-size: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem;
+}
+
+.contentImage {
+  border-radius: 10rem;
+  width: 10vw;
+  background-color: red;
 }
 
 .btns {

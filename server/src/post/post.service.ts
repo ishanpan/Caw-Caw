@@ -11,6 +11,7 @@ import { getStorage, ref, getDownloadURL } from 'firebase/storage';
 import { ProfileService } from 'src/profile/profile.service';
 import { Profile } from 'src/entities/profile.entity';
 import { ReCawDto } from 'src/DTO/re-caw.dto';
+import { ProfilePost } from 'src/entities/profile-post.entity';
 
 @Injectable()
 export class PostService {
@@ -20,6 +21,8 @@ export class PostService {
     private VoteUserRepository: Repository<VoteUser>,
     @InjectRepository(CommentPost)
     private CommentPostRepository: Repository<CommentPost>,
+    @InjectRepository(ProfilePost)
+    private ProfilePostRepository: Repository<ProfilePost>,
     private ProfileService: ProfileService,
     @InjectRepository(Profile) private ProfileRepository: Repository<Profile>,
   ) {}
@@ -31,7 +34,7 @@ export class PostService {
     const allPostsLink = await Promise.all(
       allPosts.map(async (post) => {
         const imageURL = await getDownloadURL(
-          ref(storage, `image/${post.image_id}`),
+          ref(storage, `image/${post.image_id}.png`),
         )
           .then((url) => {
             return url;
@@ -107,10 +110,7 @@ export class PostService {
 
   async createComment(createCommentDto: createCommentDto, userId: string) {
     const comment = new CommentPost();
-    // comment.post_id = createCommentDto.post_id;
     comment.description = createCommentDto.text;
-    // comment.user_id = userId;
-
     const findUserProfile = await this.ProfileRepository.findOneOrFail({
       id: userId,
     });
@@ -141,6 +141,5 @@ export class PostService {
     const post = await this.postRepository.findOneOrFail({
       post_id: ReCawDto.postId,
     });
-    // profile.posts = post;
   }
 }

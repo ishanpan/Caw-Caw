@@ -10,12 +10,21 @@ function CreatePost() {
   const textareaRef: any = React.useRef(null);
   const [selectedImage, setSelectedImage] = useState();
 
-  const hello = () => {
+  const hello = async () => {
     const image = async () => {
-      const res = await fetch("http://localhost:3001/post/upload", {});
+      let formData = new FormData();
+      formData.append("image", selectedImage);
+
+      const res = await fetch("http://localhost:3001/post/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const imageId = await res.json();
+      return imageId.imageId;
+      // return imageId.
     };
 
-    const post = async () => {
+    const post = async (imageBucketId) => {
       const res = await fetch(
         "http://localhost:3001/post/",
 
@@ -27,14 +36,16 @@ function CreatePost() {
           },
           body: JSON.stringify({
             post_text: textareaRef.current.value,
-            image_url: "abc",
+            image_url: imageBucketId,
           }),
         }
       );
-
-      console.log(res);
     };
-    post();
+    const imageId = await image();
+
+    await post(imageId);
+    setSelectedImage(null);
+    textareaRef.current.value = "";
   };
 
   const handleImage = (e: any) => {

@@ -28,4 +28,6 @@ export class Profile {
   posts: Content[];
   @OneToMany(() => CommentPost, (commentpost) => commentpost.id)
   comments: CommentPost[];
+
+  profile: Content;
 }

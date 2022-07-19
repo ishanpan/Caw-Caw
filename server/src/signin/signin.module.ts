@@ -5,6 +5,7 @@ import { AuthModule } from 'src/auth/auth.module';
 import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
 import { CommentPost } from 'src/entities/comment-post.entity';
 import { Content } from 'src/entities/content.entity';
+import { ProfilePost } from 'src/entities/profile-post.entity';
 import { Profile } from 'src/entities/profile.entity';
 import { User } from 'src/entities/user.entity';
 import { VoteUser } from 'src/entities/vote-user.entity';
@@ -17,7 +18,14 @@ import { SigninService } from './signin.service';
 
 @Module({
   imports: [
-    TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost, Profile]),
+    TypeOrmModule.forFeature([
+      User,
+      Content,
+      VoteUser,
+      CommentPost,
+      Profile,
+      ProfilePost,
+    ]),
     UsersModule,
     AuthModule,
     ProfileModule,

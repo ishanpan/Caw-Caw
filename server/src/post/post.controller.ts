@@ -20,6 +20,7 @@ import { diskStorage } from 'multer';
 import { getStorage, ref, uploadBytes, getDownloadURL } from 'firebase/storage';
 import { Request } from 'express';
 import { ReCawDto } from 'src/DTO/re-caw.dto';
+import { abort } from 'process';
 //retrieve image from backend
 
 @Controller('post')
@@ -62,7 +63,7 @@ export class PostController {
     await this.postService.createComment(createCommentDto, req.user.id);
   }
 
-  @Post()
+  @Post('recaw')
   async reCaw(@Body() ReCawDto: ReCawDto, @Req() req) {
     await this.postService.reCaw(ReCawDto, req.user.id);
   }
@@ -75,16 +76,18 @@ export class PostController {
     console.log('file uploading');
     const fileName = Math.random().toString(36).slice(2, 24);
     const storage = getStorage();
-    const storageRef = ref(storage, `${fileName}.png`);
+    const storageRef = ref(storage, `image/${fileName}.png`);
     const metadata = {
       contentType: 'image/png',
     };
-    return uploadBytes(storageRef, file.buffer, metadata)
+    uploadBytes(storageRef, file.buffer, metadata)
       .then(() => {
         console.log('uploaded');
       })
       .catch((e) => {
         console.log(e);
       });
+
+    return JSON.stringify({ imageId: fileName });
   }
 }

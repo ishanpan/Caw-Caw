@@ -7,6 +7,9 @@ import Downvote from "../public/arrow-down-outline.svg";
 import Recaw from "../public/repeat-outline.svg";
 import Opinion from "../public/ear-outline.svg";
 import Comment from "./Comment";
+// import { Image } from "@nextui-org/react";
+
+import { Image as ImageN } from "@nextui-org/react";
 
 function FeedContent(props: any) {
   const [UpVote, setUpvote] = useState(0);
@@ -76,7 +79,17 @@ function FeedContent(props: any) {
           </a>
         </div>
       </div>
-      <div className={styles.text}>{props.data.text}</div>
+      <div className={styles.content}>
+        <div className={styles.text}>{props.data.text}</div>
+        {props.data.image_id && (
+          <ImageN
+            src={props.data.image_id}
+            showSkeleton
+            alt="post image"
+            objectFit="cover"
+          />
+        )}
+      </div>
       <div className={styles.btns}>
         <div className={styles.btn}>
           <button

@@ -19,6 +19,7 @@ import { ProfileController } from './profile/profile.controller';
 import { ProfileModule } from './profile/profile.module';
 import { Profile } from './entities/profile.entity';
 import { UsersModule } from './users/users.module';
+import { ProfilePost } from './entities/profile-post.entity';
 
 @Module({
   imports: [
@@ -34,7 +35,14 @@ import { UsersModule } from './users/users.module';
       entities: ['dist/entities/*.entity{.js,.ts}'],
       synchronize: true,
     }),
-    TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost, Profile]),
+    TypeOrmModule.forFeature([
+      User,
+      Content,
+      VoteUser,
+      CommentPost,
+      Profile,
+      ProfilePost,
+    ]),
     SignupModule,
     SigninModule,
     AuthModule,
