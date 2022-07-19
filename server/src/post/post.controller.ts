@@ -37,6 +37,13 @@ export class PostController {
     return this.postService.getById(params.id);
   }
 
+  @Post()
+  async createPost(@Body() createPostDto: createPostDto, @Req() req) {
+    console.log(req.user.id);
+    await this.postService.createPost(createPostDto, req.user.id);
+    return 'post created';
+  }
+
   @Post('vote')
   async Voted(@Body() changeVoteDto: changeVoteDto, @Req() req) {
     this.postService.changeVote(changeVoteDto, req.user.id);
@@ -45,19 +52,14 @@ export class PostController {
 
   @Get('comment/:id')
   async getComments(@Param() params) {
-    return await this.postService.getComments(params.id);
+    const comments = await this.postService.getComments(params.id);
+    console.log(comments);
+    return comments;
   }
 
   @Post('comment')
   async createComment(@Body() createCommentDto: createCommentDto, @Req() req) {
     await this.postService.createComment(createCommentDto, req.user.id);
-  }
-
-  @Post()
-  async createPost(@Body() createPostDto: createPostDto, @Req() req) {
-    console.log(req.user.id);
-    await this.postService.createPost(createPostDto, req.user.id);
-    return 'post created';
   }
 
   @Post()
@@ -77,7 +79,6 @@ export class PostController {
     const metadata = {
       contentType: 'image/png',
     };
-    console.log(file.buffer);
     return uploadBytes(storageRef, file.buffer, metadata)
       .then(() => {
         console.log('uploaded');

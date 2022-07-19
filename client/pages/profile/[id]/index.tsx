@@ -1,17 +1,10 @@
 import type { NextPage } from "next";
-import Head from "next/head";
-import Image from "next/image";
 import styles from "../../../styles/home.module.scss";
-import { Button, StyledUserName } from "@nextui-org/react";
 import Navbar from "../../../components/Navbar";
-import Feed from "../../../components/Feed";
 import Sidebar from "../../../components/Sidebar";
 import NavbarBottom from "../../../components/NavbarBottom";
 import NavbarTop from "../../../components/Navbartop";
-import CreatePost from "../../../components/CreatePost";
 import UserProfile from "../../../components/UserProfile";
-import FeedContent from "../../../components/FeedContent";
-import FeedHome from "../../../components/FeedHome";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import FeedProfile from "../../../components/FeedProfile";
@@ -27,6 +20,7 @@ const Profile: NextPage = () => {
   }, [router.isReady]);
 
   const [profile, setProfile]: any = useState();
+
   useEffect(() => {
     const resFn = async () => {
       const res = await fetch(`http://localhost:3001/profile/${ids}`, {
@@ -37,7 +31,6 @@ const Profile: NextPage = () => {
         },
       });
       const response = await res.json();
-      console.log(response);
       setProfile(response);
     };
     resFn();

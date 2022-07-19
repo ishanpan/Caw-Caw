@@ -71,7 +71,6 @@ export class PostService {
     post.votes = 0;
     post.recaws = 0;
     post.category = ''; // category will depend on tags
-    post.comments = 0;
     post.image_id = createPostDto.image_url;
 
     const profile = await this.ProfileRepository.findOneOrFail({
@@ -86,11 +85,12 @@ export class PostService {
     const updateVotes = await this.postRepository.findOne({
       post_id: changeVoteDto.post_id,
     });
-
+    const findUser = await this.ProfileRepository.findOne({
+      id: id,
+    });
     const vote = new VoteUser();
-    vote.post_id = changeVoteDto.post_id;
-    vote.user_id = id;
-    // user_id
+    vote.post = updateVotes;
+    vote.op = findUser;
     if (changeVoteDto.type === 0) {
       updateVotes.votes = updateVotes.votes + 1;
       vote.VoteT = 0;
@@ -107,16 +107,29 @@ export class PostService {
 
   async createComment(createCommentDto: createCommentDto, userId: string) {
     const comment = new CommentPost();
-    comment.post_id = createCommentDto.post_id;
+    // comment.post_id = createCommentDto.post_id;
     comment.description = createCommentDto.text;
-    comment.user_id = userId;
+    // comment.user_id = userId;
+
+    const findUserProfile = await this.ProfileRepository.findOneOrFail({
+      id: userId,
+    });
+
+    const findPost = await this.postRepository.findOneOrFail({
+      post_id: createCommentDto.post_id,
+    });
+    comment.op = findUserProfile;
+    comment.postId = findPost;
     await this.CommentPostRepository.save(comment);
   }
 
   async getComments(postId: string) {
     console.log('hi there');
-    return await this.CommentPostRepository.find({
+    const getPostId = await this.postRepository.findOneOrFail({
       post_id: postId,
+    });
+    return await this.CommentPostRepository.find({
+      postId: getPostId,
     });
   }
 

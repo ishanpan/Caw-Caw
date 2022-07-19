@@ -6,7 +6,9 @@ import {
   JoinColumn,
   JoinTable,
   ManyToMany,
+  OneToOne,
 } from 'typeorm';
+import { CommentPost } from './comment-post.entity';
 import { Content } from './content.entity';
 
 @Entity()
@@ -24,4 +26,6 @@ export class Profile {
 
   @OneToMany(() => Content, (content) => content.profile)
   posts: Content[];
+  @OneToMany(() => CommentPost, (commentpost) => commentpost.id)
+  comments: CommentPost[];
 }

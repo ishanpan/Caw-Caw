@@ -4,7 +4,7 @@
 .base {
   height: 100vh;
   width: 25vw;
-  background-color: #1d3557;
+  background-color: #3d405b;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,7 +21,37 @@
 
 .sidebarLogoText {
   display: flex;
+  align-self: stretch;
   align-items: center;
+  justify-content: center;
+  transition: 0.5s;
+}
+
+.sidebarLogoTextSelected {
+  display: flex;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+  background-color: black;
+  padding: 1rem;
+  transition: 0.3s;
+}
+
+.sidebarLogoText:hover {
+  background-color: black;
+  padding: 1rem;
+  transition: 0.3s;
+}
+
+.sidebarLogoTextSelected span {
+  font-size: 1.5rem;
+  margin-left: 1rem;
+  @include respond(tab-land) {
+    font-size: 1rem;
+    margin-left: 0.75rem;
+    display: none;
+  }
+  color: #f1faee;
 }
 
 .sidebarLogoText span {
@@ -34,6 +64,7 @@
   }
   color: #f1faee;
 }
+
 .sidebarLogo {
   width: 2.5rem;
 
