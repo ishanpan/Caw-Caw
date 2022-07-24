@@ -8,7 +8,7 @@ import { ReadStream } from "fs";
 
 function CreatePost() {
   const textareaRef: any = React.useRef(null);
-  const [selectedImage, setSelectedImage] = useState();
+  const [selectedImage, setSelectedImage]: any = useState();
 
   const hello = async () => {
     const image = async () => {
@@ -24,7 +24,7 @@ function CreatePost() {
       // return imageId.
     };
 
-    const post = async (imageBucketId) => {
+    const post = async (imageBucketId: string) => {
       const res = await fetch(
         "http://localhost:3001/post/",
 
