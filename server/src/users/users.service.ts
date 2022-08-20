@@ -30,7 +30,7 @@ export class UsersService {
   async add(
     CreateUserDto: CreateUserDto,
     hashedPassword: string,
-  ): Promise<void> {
+  ): Promise<string> {
     const userD = new User();
     userD.id = Math.random().toString(36).slice(2, 9); // for internal use only.
     userD.email = CreateUserDto.email;
@@ -39,5 +39,6 @@ export class UsersService {
     await this.usersRepository.save(userD);
     const tempUsername = CreateUserDto.email.slice(0, 5);
     await this.profileService.addProfile(userD.id, tempUsername);
+    return userD.id;
   }
 }

@@ -35,6 +35,7 @@ export default function AuthSignIn(props: any) {
             email: values.email,
             password: values.password,
           }),
+          credentials: "include",
         });
         const b = await res.json();
         localStorage.setItem("token", b.access_token);

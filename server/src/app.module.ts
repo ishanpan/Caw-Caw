@@ -20,6 +20,7 @@ import { ProfileModule } from './profile/profile.module';
 import { Profile } from './entities/profile.entity';
 import { UsersModule } from './users/users.module';
 import { ProfilePost } from './entities/profile-post.entity';
+import { AuthService } from './auth/auth.service';
 
 @Module({
   imports: [

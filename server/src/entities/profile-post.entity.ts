@@ -6,9 +6,4 @@ import { Profile } from './profile.entity';
 export class ProfilePost {
   @PrimaryGeneratedColumn()
   id: string;
-  // map profile here and the content then retrieve both of them at the same time
-  // @Column()
-  // userId: Profile;
-  // @Column()
-  // postId: Content;
 }
