@@ -27,10 +27,13 @@ export class PostService {
     @InjectRepository(Profile) private ProfileRepository: Repository<Profile>,
   ) {}
 
-  async getAll() {
+  async getAll(id: string) {
     const allPosts = await this.postRepository.find();
-    console.log(allPosts);
     const storage = getStorage();
+    const profile = await this.ProfileRepository.findOneOrFail({
+      id: id,
+    });
+
     const allPostsLink = await Promise.all(
       allPosts.map(async (post) => {
         const imageURL = await getDownloadURL(
@@ -40,7 +43,6 @@ export class PostService {
             return url;
           })
           .catch((err) => {
-            console.log(err);
             return null;
           });
         post.image_id = imageURL;
@@ -48,6 +50,8 @@ export class PostService {
         return post;
       }),
     );
+
+    
 
     return allPostsLink;
   }
@@ -124,13 +128,14 @@ export class PostService {
   }
 
   async getComments(postId: string) {
-    console.log('hi there');
     const getPostId = await this.postRepository.findOneOrFail({
       post_id: postId,
     });
-    return await this.CommentPostRepository.find({
+    const com = await this.CommentPostRepository.find({
       postId: getPostId,
     });
+    console.log(com);
+    return com;
   }
 
   async reCaw(ReCawDto: ReCawDto, id: string) {

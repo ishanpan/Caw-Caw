@@ -28,8 +28,8 @@ export class PostController {
   constructor(private postService: PostService) {}
   @Public()
   @Get()
-  async getAllPosts(@Req() request: Request) {
-    const send = await this.postService.getAll();
+  async getAllPosts(@Req() req) {
+    const send = await this.postService.getAll('a9nicwo');
     return send;
   }
 

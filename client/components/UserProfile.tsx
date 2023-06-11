@@ -16,8 +16,8 @@ function UserProfile(props: any) {
   return (
     <div className={styles.base}>
       <div className={styles.details}>
-        <div>
-          <Avatar src={props.profile.image} size="xl" />
+        <div className={styles.profileAvatar}>
+          <Avatar bordered src={props.profile.image} size="xl" />
         </div>
         <div>{props.profile.name}</div>
         <div>@{props.profile.username}</div>

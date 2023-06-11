@@ -25,6 +25,7 @@ import { Profile } from 'src/entities/profile.entity';
   imports: [
     TypeOrmModule.forFeature([User, Content, VoteUser, CommentPost, Profile]),
     UsersModule,
+    AuthModule,
   ],
   providers: [SignupService, UsersService, ProfileService],
   controllers: [SignupController],

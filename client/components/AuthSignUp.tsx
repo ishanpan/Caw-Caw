@@ -31,7 +31,7 @@ export default function AuthSignUp(props: any) {
     validationSchema: validationSchema,
     onSubmit: (values) => {
       const sendVal = async () => {
-        const res = await fetch("http://localhost:3001/signin", {
+        const res = await fetch("http://localhost:3001/signup", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -41,10 +41,11 @@ export default function AuthSignUp(props: any) {
             password: values.password,
             confirmPassword: values.confirmPassword,
           }),
+          withCredentials: true,
         });
-        const b = await res.json();
-        localStorage.setItem("token", b.access_token);
-        console.log(b);
+
+        const reso = await res.json();
+        console.log(reso);
       };
 
       sendVal();
